@@ -609,6 +609,15 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
 
 //TODO: add drag functionality here
     return GestureDetector(
+      onVerticalDragStart: (details) {
+        print(details.globalPosition);
+      },
+      onVerticalDragUpdate: (details) {
+        print(details.globalPosition);
+      },
+      onVerticalDragEnd: (details) {
+        print(details.primaryVelocity);
+      },
       child: Container(
         height: height,
         width: width,
