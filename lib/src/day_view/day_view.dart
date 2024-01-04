@@ -569,6 +569,7 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
   /// If maximum and minimum dates are change then first call _setDateRange
   /// and then _regulateCurrentDate method.
   ///
+  ///
   void _regulateCurrentDate() {
     if (_currentDate.isBefore(_minDate)) {
       _currentDate = _minDate;
@@ -606,41 +607,23 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
     final heightPerSlot = minuteSlotSize.minutes * heightPerMinute;
     final slots = (Constants.hoursADay * 60) ~/ minuteSlotSize.minutes;
 
-    return Container(
-      height: height,
-      width: width,
-      child: Stack(
-        children: [
-          for (int i = 0; i < slots; i++)
-            Positioned(
-              top: heightPerSlot * i,
-              left: 0,
-              right: 0,
-              bottom: height - (heightPerSlot * (i + 1)),
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onLongPress: () => widget.onDateLongPress?.call(
-                  DateTime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    0,
-                    minuteSlotSize.minutes * i,
-                  ),
-                ),
-                onTap: () => widget.onDateTap?.call(
-                  DateTime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    0,
-                    minuteSlotSize.minutes * i,
-                  ),
-                ),
+//TODO: add drag functionality here
+    return GestureDetector(
+      child: Container(
+        height: height,
+        width: width,
+        child: Stack(
+          children: [
+            for (int i = 0; i < slots; i++)
+              Positioned(
+                top: heightPerSlot * i,
+                left: 0,
+                right: 0,
+                bottom: height - (heightPerSlot * (i + 1)),
                 child: SizedBox(width: width, height: heightPerSlot),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

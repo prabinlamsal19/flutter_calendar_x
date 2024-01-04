@@ -1,7 +1,7 @@
 analyzer:
   exclude:
     - example/build/**
-    - exmaple/android/**
+    - example/android/**
     - example/ios/**
     - example/web/**
     - idea/**
