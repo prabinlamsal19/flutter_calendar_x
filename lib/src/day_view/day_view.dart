@@ -166,8 +166,7 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// This method will be called when user taps on event tile.
   final CellTapCallback<T>? onEventTap;
 
-  /// This method will be called when user long press on calendar.
-  final DatePressCallback? onDateLongPress;
+  // final DatePressCallback? onDateLongPress;
 
   /// Called when user taps on day view page.
   ///
@@ -176,7 +175,14 @@ class DayView<T extends Object?> extends StatefulWidget {
   ///
   /// Ex, User Taps on Date page with date 11/01/2022 and time span is 1PM to 2PM.
   /// then DateTime object will be  DateTime(2022,01,11,1,0)
+  //TODO: remove the one below also remove the unnecessary comments afterwards
   final DateTapCallback? onDateTap;
+  final DateTapCallback? onDateLongPress;
+
+  //TODO: write comments for the below parameters
+  final VerticalDragCallback? onVerticalDragStart;
+  final VerticalDragCallback? onVerticalDragUpdate;
+  final VerticalDragEndCallback? onVerticalDragEnd;
 
   /// Defines size of the slots that provides long press callback on area
   /// where events are not there.
@@ -244,6 +250,9 @@ class DayView<T extends Object?> extends StatefulWidget {
     this.onEventTap,
     this.onDateLongPress,
     this.onDateTap,
+    this.onVerticalDragStart,
+    this.onVerticalDragUpdate,
+    this.onVerticalDragEnd,
     this.minuteSlotSize = MinuteSlotSize.minutes60,
     this.headerStyle = const HeaderStyle(),
     this.fullDayEventBuilder,
@@ -611,12 +620,18 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
     return GestureDetector(
       onVerticalDragStart: (details) {
         print(details.globalPosition);
+        //return the value of i basically
+        (details.globalPosition /
+            heightPerSlot); //TODO : return this value after seeing if its correct
       },
       onVerticalDragUpdate: (details) {
         print(details.globalPosition);
+        (details.globalPosition /
+            heightPerSlot); //TODO: return this value after seeing if its correct
       },
       onVerticalDragEnd: (details) {
-        print(details.primaryVelocity);
+        print(details
+            .primaryVelocity); //TODO: just need to return a callback with no value.. just return primary velocity for now
       },
       child: Container(
         height: height,
@@ -629,7 +644,28 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
                 left: 0,
                 right: 0,
                 bottom: height - (heightPerSlot * (i + 1)),
-                child: SizedBox(width: width, height: heightPerSlot),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onLongPress: () => widget.onDateLongPress?.call(
+                    DateTime(
+                      date.year,
+                      date.month,
+                      date.day,
+                      0,
+                      minuteSlotSize.minutes * i,
+                    ),
+                  ),
+                  onTap: () => widget.onDateTap?.call(
+                    DateTime(
+                      date.year,
+                      date.month,
+                      date.day,
+                      0,
+                      minuteSlotSize.minutes * i,
+                    ),
+                  ),
+                  child: SizedBox(width: width, height: heightPerSlot),
+                ),
               ),
           ],
         ),

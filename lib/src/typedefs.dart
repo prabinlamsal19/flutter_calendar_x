@@ -67,7 +67,11 @@ typedef CellTapCallback<T extends Object?> = void Function(
 
 typedef DatePressCallback = void Function(DateTime date);
 
-typedef DateTapCallback = void Function(DateTime date); 
+typedef DateTapCallback = void Function(DateTime date);
+
+typedef VerticalDragCallback = void Function(DateTime date);
+
+typedef VerticalDragEndCallback = void Function(DateTime date);
 
 typedef EventFilter<T extends Object?> = List<CalendarEventData<T>> Function(
     DateTime date, List<CalendarEventData<T>> events);
