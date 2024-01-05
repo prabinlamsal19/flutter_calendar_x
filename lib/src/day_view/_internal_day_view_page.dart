@@ -161,6 +161,7 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               controller: scrollController,
+              physics: NeverScrollableScrollPhysics(),
               child: SizedBox(
                 height: height,
                 width: width,
