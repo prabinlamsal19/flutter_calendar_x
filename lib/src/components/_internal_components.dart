@@ -379,41 +379,25 @@ class PressDetector extends StatelessWidget {
     final heightPerSlot = minuteSlotSize.minutes * heightPerMinute;
     final slots = (Constants.hoursADay * 60) ~/ minuteSlotSize.minutes;
 
-    return Container(
-      height: height,
-      width: width,
-      child: Stack(
-        children: [
-          for (int i = 0; i < slots; i++)
-            Positioned(
-              top: heightPerSlot * i,
-              left: 0,
-              right: 0,
-              bottom: height - (heightPerSlot * (i + 1)),
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () => onDateTap?.call(
-                  DateTime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    0,
-                    minuteSlotSize.minutes * i,
-                  ),
-                ),
-                onLongPress: () => onDateLongPress?.call(
-                  DateTime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    0,
-                    minuteSlotSize.minutes * i,
-                  ),
-                ),
+    return GestureDetector(
+      onTap: () {
+        print('GESTURE DETECTOR TAPPED  - Internal Components');
+      },
+      child: Container(
+        height: height,
+        width: width,
+        child: Stack(
+          children: [
+            for (int i = 0; i < slots; i++)
+              Positioned(
+                top: heightPerSlot * i,
+                left: 0,
+                right: 0,
+                bottom: height - (heightPerSlot * (i + 1)),
                 child: SizedBox(width: width, height: heightPerSlot),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
