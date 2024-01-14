@@ -644,28 +644,7 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
                 left: 0,
                 right: 0,
                 bottom: height - (heightPerSlot * (i + 1)),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onLongPress: () => widget.onDateLongPress?.call(
-                    DateTime(
-                      date.year,
-                      date.month,
-                      date.day,
-                      0,
-                      minuteSlotSize.minutes * i,
-                    ),
-                  ),
-                  onTap: () => widget.onDateTap?.call(
-                    DateTime(
-                      date.year,
-                      date.month,
-                      date.day,
-                      0,
-                      minuteSlotSize.minutes * i,
-                    ),
-                  ),
-                  child: SizedBox(width: width, height: heightPerSlot),
-                ),
+                child: SizedBox(width: width, height: heightPerSlot),
               ),
           ],
         ),
