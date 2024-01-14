@@ -161,7 +161,7 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               controller: scrollController,
-              physics: NeverScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(),
               child: SizedBox(
                 height: height,
                 width: width,
@@ -197,7 +197,7 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
                               halfHourIndicatorSettings.dashSpaceWidth,
                         ),
                       ),
-                    if (showQuarterHours)
+                    if (showQuarterHours) 
                       CustomPaint(
                         size: Size(width, height),
                         painter: QuarterHourLinePainter(
